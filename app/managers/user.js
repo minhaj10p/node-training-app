@@ -1,6 +1,7 @@
 // user.js
 
 const { UserNotFound } = require('../errors');
+const { User } = require('../models')
 class UserManager {
   constructor() {
     this.users = [
@@ -13,6 +14,7 @@ class UserManager {
   }
 
   getUser(id) {
+      console.log(User)
       const user = this.users.find((user) => user.id == id)
       if(user) {
           return Promise.resolve(user);

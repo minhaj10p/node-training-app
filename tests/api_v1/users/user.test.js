@@ -1,10 +1,11 @@
 const { App } = require("../../../app");
+const config = require('../../../app/config');
 const supertest = require("supertest");
 
 describe("User API V1 ", () => {
   let api;
-  beforeEach(() => {
-    api = supertest(new App({}).get());
+  beforeAll(async () => {
+    api = await supertest(new App(config['test']).get());
   })
 
   it("Can get users", async () => {
