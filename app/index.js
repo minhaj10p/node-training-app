@@ -1,18 +1,21 @@
 const express = require("express");
 
-const { registerRoutes } = require('./routes');
-const { db, initialize } = require('./models')
+const { registerRoutes } = require("./routes");
+const { db, initialize } = require("./models");
 
 class App {
   constructor(configuration) {
-
     this.configuration = configuration;
     this.app = express();
     this.router = express.Router();
-    registerRoutes(this.router);
-    this.syncDatabase(configuration.db);
-    this.app.use(this.router);
+    this.bootstrapped = false;
+  }
 
+  async bootstrap() {
+    await this.syncDatabase(this.configuration.db);
+    registerRoutes(this.router);
+    this.app.use(this.router);
+    this.bootstrapped = true;
   }
 
   get() {
@@ -20,13 +23,12 @@ class App {
   }
 
   listen(cb) {
-      this.app.listen(this.configuration.port, cb(this.configuration.port));
+    this.app.listen(this.configuration.port, cb(this.configuration.port));
   }
-
 
   async syncDatabase(conf) {
     initialize(conf);
-    await db.sequelize.sync();
+    return db.sequelize.sync();
   }
 }
 

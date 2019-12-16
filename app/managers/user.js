@@ -1,20 +1,14 @@
 // user.js
 
 const { UserNotFound } = require('../errors');
-const { User } = require('../models')
+const { db } = require('../models')
 class UserManager {
   constructor() {
-    this.users = [
-      {
-        id: 1,
-        firstName: "John",
-        lastName: "Doe"
-      }
-    ];
+    this.users = db.User;
   }
 
-  getUser(id) {
-      const user = this.users.find((user) => user.id == id)
+  async getUser(id) {
+      const user = await this.users.findOne({})
       if(user) {
           return Promise.resolve(user);
       }

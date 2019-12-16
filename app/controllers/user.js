@@ -2,7 +2,7 @@ const { UserManager } = require("../managers");
 const { UserNotFound } = require("../errors");
 
 class UserController {
-  constructor(router) {
+  constructor(router, db) {
     this.userManager = new UserManager();
   }
   async getUser(req, res) {
@@ -12,7 +12,7 @@ class UserController {
     } catch (ex) {
       switch (ex.constructor) {
         case UserNotFound:
-          res.status(400);
+          res.status(404);
           res.json({ message: "User not found" });
           return;
         default:
