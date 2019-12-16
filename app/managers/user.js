@@ -1,6 +1,6 @@
 // user.js
 
-const { UserNotFound } = require('../errors');
+const { UserNotFound, InvalidUserObject } = require('../errors');
 const { db } = require('../models')
 class UserManager {
   constructor() {
@@ -13,6 +13,12 @@ class UserManager {
           return Promise.resolve(user);
       }
       throw new UserNotFound('user not found with id: ' + id);
+  }
+  async createUser(user) {
+    if(!user) {
+      throw new InvalidUserObject();
+    }
+    await this.users.create(user)
   }
 }
 

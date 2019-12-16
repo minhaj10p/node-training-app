@@ -1,3 +1,3 @@
-const { UserNotFound } = require("./user");
+const { UserNotFound, InvalidUserObject } = require("./user");
 
-module.exports = { UserNotFound };
+module.exports = { UserNotFound, InvalidUserObject };

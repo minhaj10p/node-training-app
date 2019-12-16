@@ -4,4 +4,8 @@ class UserNotFound extends Error {
     constructor(...args) { super(args) }
 }
 
-module.exports = { UserNotFound };
+class InvalidUserObject extends Error {
+    constructor(...args) { super(args) }
+}
+
+module.exports = { UserNotFound, InvalidUserObject };
