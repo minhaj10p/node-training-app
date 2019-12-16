@@ -6,7 +6,7 @@ describe("User API V1 ", () => {
   let api;
   beforeAll(async () => {
     const app = new App(config['test'])
-    await app.bootstrap();
+    await app.bootstrap(() => {});
     api = supertest(app.get());
   })
 
