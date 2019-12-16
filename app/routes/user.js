@@ -13,6 +13,7 @@ class UserRoutes {
 
     registerRoutes() {
         this.router.get("/api/v1/users/:id",  (req, res) => this.userController.getUser(req, res));
+        this.router.post("/api/v1/users", (req, res) => this.userController.createUser(req, res));
     }
 }
 

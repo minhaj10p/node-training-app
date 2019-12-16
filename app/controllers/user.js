@@ -16,10 +16,20 @@ class UserController {
           res.json({ message: "User not found" });
           return;
         default:
-          console.log(ex);
           res.json({ status: 500 });
           break;
       }
+    }
+  }
+
+  async createUser(req, res) {
+    try {
+      await this.userManager.createUser(req.body);
+      res.json({done: true});
+    }
+    catch (ex) {
+      res.status(500);
+      res.json(ex)
     }
   }
   
